@@ -1,7 +1,12 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "target": "ES2020",  // ou une version supérieure
+    "module": "ESNext",  // utilise ESNext pour les modules
+    "moduleResolution": "node",  // nécessaire pour la résolution des modules
+    "esModuleInterop": true,  // pour une meilleure compatibilité avec les modules CommonJS
+    "allowJs": true,  // permettre l'utilisation de JavaScript avec TypeScript
+    "outDir": "./dist",  // sortie des fichiers compilés
+    "strict": true  // activation des vérifications strictes
+  },
+  "include": ["src/**/*.ts"]
 }

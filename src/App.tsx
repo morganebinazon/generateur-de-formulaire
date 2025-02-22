@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { FormGenerator } from './FormGenerator';  // Avec des accolades car c'est une exportation nommée
-
-
+import { FormGenerator } from './FormGenerator';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<'Filière' | 'Class' | 'Étudiant'>('Filière');
