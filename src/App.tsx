@@ -1,17 +1,60 @@
 import React, { useState } from 'react';
+import { FormGenerator } from './FormGenerator';  // Avec des accolades car c'est une exportation nommée
 
-function App() {
-  const [activeSection, setActiveSection] = useState('Filière');
+
+
+const App: React.FC = () => {
+  const [activeSection, setActiveSection] = useState<'Filière' | 'Class' | 'Étudiant'>('Filière');
+
+  // Définir la configuration du formulaire pour chaque section
+  const filiereFormConfig = [
+    {
+      name: 'filiere',
+      label: 'Nom de la filière',
+      type: 'text',
+      placeholder: 'Entrez le nom de la filière',
+    },
+  ];
+
+  const classFormConfig = [
+    {
+      name: 'className',
+      label: 'Nom de la classe',
+      type: 'text',
+      placeholder: 'Entrez le nom de la classe',
+    },
+    {
+      name: 'classSize',
+      label: 'Nombre d\'étudiants',
+      type: 'number',
+      placeholder: 'Entrez le nombre d\'étudiants',
+    },
+  ];
+
+  const etudiantFormConfig = [
+    {
+      name: 'studentName',
+      label: 'Nom de l\'étudiant',
+      type: 'text',
+      placeholder: 'Entrez le nom de l\'étudiant',
+    },
+    {
+      name: 'studentAge',
+      label: 'Âge de l\'étudiant',
+      type: 'number',
+      placeholder: 'Entrez l\'âge de l\'étudiant',
+    },
+  ];
 
   // Contenus conditionnels basés sur la section active
   const renderContent = () => {
     switch (activeSection) {
       case 'Filière':
-        return <FormulairePrincipal />;
+        return <FormGenerator formConfig={filiereFormConfig} />;
       case 'Class':
-        return <FormulaireFille title="Formulaire Class" />;
+        return <FormGenerator formConfig={classFormConfig} />;
       case 'Étudiant':
-        return <FormulaireFille title="Formulaire Étudiant" />;
+        return <FormGenerator formConfig={etudiantFormConfig} />;
       default:
         return <p>Veuillez sélectionner une section.</p>;
     }
@@ -26,9 +69,7 @@ function App() {
           <li>
             <button
               onClick={() => setActiveSection('Filière')}
-              className={`w-full text-left p-2 rounded ${
-                activeSection === 'Filière' ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'
-              }`}
+              className={`w-full text-left p-2 rounded ${activeSection === 'Filière' ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
             >
               Filière
             </button>
@@ -36,9 +77,7 @@ function App() {
           <li>
             <button
               onClick={() => setActiveSection('Class')}
-              className={`w-full text-left p-2 rounded ${
-                activeSection === 'Class' ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'
-              }`}
+              className={`w-full text-left p-2 rounded ${activeSection === 'Class' ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
             >
               Class
             </button>
@@ -46,9 +85,7 @@ function App() {
           <li>
             <button
               onClick={() => setActiveSection('Étudiant')}
-              className={`w-full text-left p-2 rounded ${
-                activeSection === 'Étudiant' ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'
-              }`}
+              className={`w-full text-left p-2 rounded ${activeSection === 'Étudiant' ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
             >
               Étudiant
             </button>
@@ -62,47 +99,6 @@ function App() {
         {renderContent()}
       </main>
     </div>
-  );
-}
-
-// Composant pour le formulaire principal
-const FormulairePrincipal = () => (
-  <form className="space-y-4">
-    <div>
-      <label htmlFor="filiere" className="block mb-2 font-bold">
-        Nom de la filière
-      </label>
-      <input
-        type="text"
-        id="filiere"
-        className="w-full p-2 border border-gray-300 rounded"
-        placeholder="Entrez le nom de la filière"
-      />
-    </div>
-    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-      Soumettre
-    </button>
-  </form>
-);
-
-// Composant pour les formulaires filles
-const FormulaireFille = ({ title }) => {
-  return (
-    <form className="space-y-4">
-      <div>
-        <label htmlFor="name" className="block mb-2 font-bold">
-          {title} - Nom
-        </label>
-        <input
-          type="text"
-          id="name"
-          className="w-full p-2 border border-gray-300 rounded"
-          placeholder={`Entrez le nom pour ${title.toLowerCase()}`} />
-      </div>
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-        Soumettre
-      </button>
-    </form>
   );
 };
 
